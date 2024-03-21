@@ -14,10 +14,10 @@ def load_model():
 # Load the model
 model = load_model()
 
-st.title("Aplikasi Deteksi Penyuntingan dan Pemindahan Salinan pada Gambar")
+st.title("Splicing and Copy-move Detection App")
 
 # When the input changes, the cached model will be used
-uploaded_file = st.file_uploader("Pilih gambar...", type=["png", "jpg"])
+uploaded_file = st.file_uploader("Choose an image...", type=["png", "jpg"])
 
 # Function to preprocess image
 def preprocess_image(image):
@@ -35,7 +35,7 @@ if uploaded_file is not None:
     # Open image using PIL
     image = Image.open(io.BytesIO(image_bytes))
     # Display the uploaded image
-    st.image(image, caption='Gambar yang Diunggah.', use_column_width=True)
+    st.image(image, caption='Uploaded Image.', use_column_width=True)
 
     # Preprocess the image
     image_array = preprocess_image(image)
@@ -46,6 +46,6 @@ if uploaded_file is not None:
 
     # Display prediction result
     if prediction[0][1] > prediction[0][0]:
-        st.write("Gambar terdeteksi sebagai gambar asli.")
+        st.write("The image is detected as an original image.")
     else:
-        st.write("Gambar terdeteksi sebagai gambar yang telah diubah.")
+        st.write("The image is detected as a tampered image.")
