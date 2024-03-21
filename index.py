@@ -46,6 +46,6 @@ if uploaded_file is not None:
 
     # Display prediction result
     if prediction[0][1] > prediction[0][0]:
-        st.write("The image is detected as a tampered image.")
-    else:
         st.write("The image is detected as a original image.")
+    else:
+        st.write("The image is detected as a tempered image.")
