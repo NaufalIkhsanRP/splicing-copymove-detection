@@ -8,7 +8,7 @@ import io
 @st.cache(allow_output_mutation=True)
 def load_models():
     # Load the models
-    model1 = tf.keras.models.load_model("CoMoFoD128(prewitt).h5")
+    model1 = tf.keras.models.load_model("CoMoFoD128(prewit).h5")
     model2 = tf.keras.models.load_model("CASFOD128(prewit).h5")
     return model1, model2
 
