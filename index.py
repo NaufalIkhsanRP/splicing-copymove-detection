@@ -15,24 +15,11 @@ def load_models():
 # Load the models
 model1, model2 = load_models()
 
-# Set page configuration
-st.set_page_config(
-    page_title="Image Authenticity Detection App",
-    layout="wide"
-)
+# Set page title and icon
+st.set_page_config(page_title="Image Authenticity Detection", page_icon=":detective:")
 
-# Function to preprocess image
-def preprocess_image(image):
-    # Resize image to 128x128 pixels
-    image_resized = image.resize((128, 128))
-    # Convert image to array
-    image_array = np.array(image_resized) / 255.0  # Normalize pixel values
-    # Expand dimensions to match input shape of the models
-    image_array = np.expand_dims(image_array, axis=0)
-    return image_array
-
-# Main content
-st.title("Image Authenticity Detection App")
+# Main title
+st.title("Image Authenticity Detection")
 
 # File uploader
 uploaded_file = st.file_uploader("Upload an image...", type=["png", "jpg"])
@@ -44,6 +31,16 @@ if uploaded_file is not None:
     image = Image.open(io.BytesIO(image_bytes))
     # Display the uploaded image
     st.image(image, caption='Uploaded Image.', use_column_width=True)
+
+    # Function to preprocess image
+    def preprocess_image(image):
+        # Resize image to 128x128 pixels
+        image_resized = image.resize((128, 128))
+        # Convert image to array
+        image_array = np.array(image_resized) / 255.0  # Normalize pixel values
+        # Expand dimensions to match input shape of the models
+        image_array = np.expand_dims(image_array, axis=0)
+        return image_array
 
     # Preprocess the image
     image_array = preprocess_image(image)
