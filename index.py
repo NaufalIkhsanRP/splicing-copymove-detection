@@ -15,14 +15,20 @@ def load_models():
 # Load the models
 model1, model2 = load_models()
 
-# Set page title and icon
-st.set_page_config(page_title="Image Authenticity Detection", page_icon=":detective:")
+st.title("Splicing and Copy-move Detection App")
 
-# Main title
-st.title("Image Authenticity Detection")
+# When the input changes, the cached models will be used
+uploaded_file = st.file_uploader("Choose an image...", type=["png", "jpg"])
 
-# File uploader
-uploaded_file = st.file_uploader("Upload an image...", type=["png", "jpg"])
+# Function to preprocess image
+def preprocess_image(image):
+    # Resize image to 128x128 pixels
+    image_resized = image.resize((128, 128))
+    # Convert image to array
+    image_array = np.array(image_resized) / 255.0  # Normalize pixel values
+    # Expand dimensions to match input shape of the models
+    image_array = np.expand_dims(image_array, axis=0)
+    return image_array
 
 if uploaded_file is not None:
     # Read image as bytes
@@ -32,16 +38,6 @@ if uploaded_file is not None:
     # Display the uploaded image
     st.image(image, caption='Uploaded Image.', use_column_width=True)
 
-    # Function to preprocess image
-    def preprocess_image(image):
-        # Resize image to 128x128 pixels
-        image_resized = image.resize((128, 128))
-        # Convert image to array
-        image_array = np.array(image_resized) / 255.0  # Normalize pixel values
-        # Expand dimensions to match input shape of the models
-        image_array = np.expand_dims(image_array, axis=0)
-        return image_array
-
     # Preprocess the image
     image_array = preprocess_image(image)
 
@@ -50,11 +46,15 @@ if uploaded_file is not None:
     # Predict with model 2
     prediction2 = model2.predict(image_array)
 
+    # Display prediction results
+    st.write("Prediction using Model 1:", prediction1)
+    st.write("Prediction using Model 2:", prediction2)
+
     # Combine predictions
     combined_prediction = (prediction1 + prediction2) / 2
 
     # Display combined prediction result
     if combined_prediction[0][1] > combined_prediction[0][0]:
-        st.write("The image is detected as a tampered image.")
-    else:
         st.write("The image is detected as an original image.")
+    else:
+        st.write("The image is detected as a tampered image.")
