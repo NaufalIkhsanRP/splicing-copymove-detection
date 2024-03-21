@@ -8,7 +8,7 @@ import io
 @st.cache(allow_output_mutation=True)
 def load_model():
     # Load the model
-    model = tf.keras.models.load_model("CASFOD128(prewit).h5")
+    model = tf.keras.models.load_model("CoMoFoD128(prewit).h5")
     return model
 
 # Load the model
