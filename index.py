@@ -16,7 +16,7 @@ model = load_model()
 st.title("Image Forgery Detection App")
 
 # When the input changes, the cached model will be used
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg"])
+uploaded_file = st.file_uploader("Choose an image...", type=["png","jpg"])
 
 # Function to preprocess image
 def preprocess_image(image):
