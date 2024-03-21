@@ -1,7 +1,8 @@
 import streamlit as st
-from PIL import Image
 import tensorflow as tf
 import numpy as np
+from PIL import Image
+import io
 
 # Function to load the model
 @st.cache(allow_output_mutation=True)
@@ -15,22 +16,25 @@ model = load_model()
 
 st.title("Aplikasi Deteksi Penyuntingan dan Pemindahan Salinan pada Gambar")
 
-# Ketika input berubah, model yang di-cache akan digunakan
-uploaded_file = st.file_uploader("Pilih gambar...", type=["png","jpg"])
+# When the input changes, the cached model will be used
+uploaded_file = st.file_uploader("Pilih gambar...", type=["png", "jpg"])
 
 # Function to preprocess image
 def preprocess_image(image):
     # Resize image to 128x128 pixels
     image_resized = image.resize((128, 128))
     # Convert image to array
-    image_array = np.asarray(image_resized) / 255.0  # Normalize pixel values
+    image_array = np.array(image_resized) / 255.0  # Normalize pixel values
     # Expand dimensions to match input shape of the model
     image_array = np.expand_dims(image_array, axis=0)
     return image_array
 
 if uploaded_file is not None:
+    # Read image as bytes
+    image_bytes = uploaded_file.read()
+    # Open image using PIL
+    image = Image.open(io.BytesIO(image_bytes))
     # Display the uploaded image
-    image = Image.open(uploaded_file)
     st.image(image, caption='Gambar yang Diunggah.', use_column_width=True)
 
     # Preprocess the image
