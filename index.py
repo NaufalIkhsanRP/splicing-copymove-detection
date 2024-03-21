@@ -8,9 +8,9 @@ import io
 @st.cache(allow_output_mutation=True)
 def load_models():
     # Load the models
-    model1 = tf.keras.models.load_model("path/to/model1.h5")
-    model2 = tf.keras.models.load_model("path/to/model2.h5")
-    model3 = tf.keras.models.load_model("path/to/model3.h5")
+    model1 = tf.keras.models.load_model("CASIA 2128(prewit).h5")
+    model2 = tf.keras.models.load_model("CoMoFoD128(prewit).h5")
+    model3 = tf.keras.models.load_model("CASFOD128(prewit).h5")
     return model1, model2, model3
 
 # Load the models
@@ -59,6 +59,6 @@ if uploaded_file is not None:
 
     # Display combined prediction result
     if combined_prediction[0][1] > combined_prediction[0][0]:
-        st.write("The image is detected as an original image.")
+        st.write("The image is detected as an tampered image.")
     else:
-        st.write("The image is detected as a tampered image.")
+        st.write("The image is detected as a original image.")
