@@ -7,7 +7,7 @@ import numpy as np
 @st.cache_resource
 def load_model():
     # Load the model
-    model = tf.keras.models.load_model("CASFOD(prewit).h5")
+    model = tf.keras.models.load_model("CASFOD128(prewit).h5")
     return model
 
 # Load the model
