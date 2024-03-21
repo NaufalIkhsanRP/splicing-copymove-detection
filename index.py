@@ -20,7 +20,7 @@ uploaded_file = st.file_uploader("Choose an image...", type=["png","jpg"])
 
 # Function to preprocess image
 def preprocess_image(image):
-    image = image.resize((128, 128))
+    image = image.resize((128, 128, 1))
     # Convert image to array
     image_array = np.asarray(image)
     # Expand dimensions to match input shape of the model
