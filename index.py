@@ -46,10 +46,6 @@ if uploaded_file is not None:
     # Predict with model 2
     prediction2 = model2.predict(image_array)
 
-    # Display prediction results
-    st.write("Prediction using Model 1:", prediction1)
-    st.write("Prediction using Model 2:", prediction2)
-
     # Combine predictions
     combined_prediction = (prediction1 + prediction2) / 2
 
